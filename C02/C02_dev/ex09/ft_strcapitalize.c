@@ -6,46 +6,35 @@
 /*   By: mvoinich <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/30 13:13:15 by mvoinich          #+#    #+#             */
-/*   Updated: 2021/11/30 13:42:20 by mvoinich         ###   ########.fr       */
+/*   Updated: 2021/12/02 10:38:38 by mvoinich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-#include <stdio.h>
 
 char	*ft_strcapitalize(char *str)
 {
 	int	i;
 
-	i = 0;	
+	i = 1;
+	if (str[0] >= 97 && str[0] <= 122)
+	{
+		str[0] = str[0] - 32;
+	}
 	while (str[i] != '\0')
 	{
-		if (str[0] >= 97 && str[0] <= 122)
+		if (str[i] >= 65 && str[i] <= 90)
 		{
-			str[0] = str[0] - 32;
+			str[i] = str[i] + 32;
 		}
-		if (str[i] == 32)
+		if (((str[i - 1] < 65 || str[i - 1] > 90)
+				&& (str[i - 1] < 97 || str[i - 1] > 122))
+			&& (str[i - 1] < 48 || str[i - 1] > 57))
 		{
-			++i;
 			if (str[i] >= 97 && str[i] <= 122)
 			{
 				str[i] = str[i] - 32;
 			}
 		}
-		else
-		{
-			if (str[i] >= 65 && str[i] <= 90)
-			{
-				str[i] = str[i] + 32;
-			}
-		}
 		i++;
 	}
 	return (str);
-}
-
-int	main()
-{
-	char str[] = "hEllO, iT is 5nIce to mEet You!";
-	printf("%s\n", ft_strcapitalize(str));
-	return 0;
 }
