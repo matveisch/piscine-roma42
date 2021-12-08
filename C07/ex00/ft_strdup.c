@@ -6,7 +6,7 @@
 /*   By: mvoinich <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/08 10:15:33 by mvoinich          #+#    #+#             */
-/*   Updated: 2021/12/08 10:31:25 by mvoinich         ###   ########.fr       */
+/*   Updated: 2021/12/08 15:24:01 by mvoinich         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,8 @@ char	*ft_strdup(char *src)
 	char	*dest;
 
 	dest = malloc(ft_strlen(src) + 1);
-	if (dest == NULL)
-		return (NULL);
+	if (dest == ((void *)0))
+		return (((void *)0));
 	ft_strcpy(dest, src);
 	return (dest);
 }
