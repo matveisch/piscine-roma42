@@ -52,42 +52,81 @@ void	reverse(char *x, int begin, int end)
 	reverse(x, ++begin, --end);
 }
 
-int main(int argc, char **argv)
+void open_file(char *buffer, int size)
 {
-	//opening the file and creating one big string
 	int		fh;
 	int		rd;
-	char	buffer[2048];
-	
+
 	fh = open("numbers.dict", O_RDONLY);
-	rd = read(fh, buffer, 2048);
+	rd = read(fh, buffer, size);
 	buffer[rd] = '\0';
+}
 
-	//getting the first number
-	char str2 = argv[1][1];
-	int num = (argv[1][0] - '0') * 10;
+void int_to_str(char *ptr, int size, int num)
+{
+	int	i;
 
-	//convert number into string
-	int j = 0;
-	char ptr[50];
+	i = 0;
 	while (num != 0)
 	{
-		ptr[j] = ((num % 10) + 48);
+		ptr[i] = ((num % 10) + 48);
 		num = num / 10;
-		j++;
+		i++;
 	}
+}
 
-	//reverse string
-	reverse(ptr, 0, ft_strlen(ptr) - 1);
+void print_number(char *start)
+{
+	int	i;
 
-	//using strstr to get exact number
-	char *start = ft_strstr(buffer, ptr);
-	int i = 0;
+	i = 0;
 	while (start[i] != '\n')
 	{
 		if (start[i] != ' ' && start[i] != ':' && !(start[i] >= '0' && start[i] <= '9'))
 			printf("%c", start[i]);
 		i++;
 	}
-	printf("\n");
+}
+
+int main(int argc, char **argv)
+{
+	//opening the file and creating one big string
+	char	buffer[2048];
+	open_file(buffer, 2048);
+
+	if (ft_strlen(argv[1]) == 1 || (ft_strlen(argv[1]) == 2 && argv[1][1] == '0'))
+	{
+		char *start = ft_strstr(buffer, argv[1]);
+		print_number(start);
+	}
+	else if (ft_strlen(argv[1]) == 2 && !(argv[1][1] == '0'))
+	{
+		//getting the first number
+		int num1 = (argv[1][0] - '0') * 10;
+
+		//convert first number into string
+		char ptr[50];
+		int_to_str(ptr, 50, num1);
+
+		//reverse string
+		reverse(ptr, 0, ft_strlen(ptr) - 1);
+
+		//using strstr to get exact number
+		char *start = ft_strstr(buffer, ptr);
+		print_number(start);
+
+		//second number
+		//getting the second number
+		int num2 = (argv[1][1] - '0');
+
+		//convert second number into string
+		char ptr1[50];
+		int_to_str(ptr1, 50, num2);
+
+		printf(" ");
+
+		//using strstr to get exact number
+		char *start1 = ft_strstr(buffer, ptr1);
+		print_number(start1);
+	}
 }
