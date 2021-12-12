@@ -14,6 +14,11 @@
 #include <fcntl.h>
 #include <stdio.h>
 
+void	ft_putchar(char c)
+{
+	write(1, &c, 1);
+}
+
 char	*ft_strstr(char *str, char *to_find)
 {
 	int	i;
@@ -94,7 +99,7 @@ void	print_number(char *start)
 	{
 		if (start[i] != ' ' && start[i] != ':'
 			&& !(start[i] >= '0' && start[i] <= '9'))
-			printf("%c", start[i]);
+			ft_putchar(start[i]);
 		i++;
 	}
 }
@@ -162,7 +167,7 @@ int	main(int argc, char **argv)
 	{
 		//getting the first number
 		int	num1;
-		
+
 		num1 = (argv[1][0] - '0') * 10;
 		//convert first number into string
 		char	ptr[50];
@@ -184,7 +189,7 @@ int	main(int argc, char **argv)
 		char	ptr1[50];
 
 		int_to_str(ptr1, 50, num2);
-		printf(" ");
+		ft_putchar('-');
 		//using strstr to get exact number
 		char	*start1;
 
