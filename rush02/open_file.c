@@ -88,6 +88,7 @@ void	int_to_str(char *ptr, int size, int num)
 		num = num / 10;
 		i++;
 	}
+	ptr[i] = '\0';
 }
 
 void	print_number(char *start)
@@ -191,6 +192,18 @@ void	two_digits(int argc, char **argv)
 	print_number(start1);
 }
 
+int if_three_el_nt(int argc, char *argv)
+{
+	int	num;
+
+	num = ft_atoi(argv);
+	if ((num % 100) >= 11 && (num % 100) <= 19)
+	{
+		return (1);
+	}
+	return (0);
+}
+
 void	three_digits(int argc, char **argv)
 {
 	//opening the file and creating one big string
@@ -216,20 +229,34 @@ void	three_digits(int argc, char **argv)
 	print_number(start);
 
 	ft_putchar('-');
+	if (if_three_el_nt(argc, argv[1]) == 1)
+	{
+		int	num;
+		char str[50];
 
-	num2 = (argv[1][1] - '0');
-	num2 = num2 * 10;
-	int_to_str(ptr1, 50, num2);
-	reverse(ptr1, 0, ft_strlen(ptr1) - 1);
-	start = ft_strstr(buffer, ptr1);
-	print_number(start);
-	
-	ft_putchar('-');
-	num3 = (argv[1][2] - '0');
-	int_to_str(ptr2, 50, num3);
-	start = ft_strstr(buffer, ptr2);
-	print_number(start);
+		num = ft_atoi(argv[1]);
+		num = num % 100;
+		int_to_str(str, 50, num);
+		reverse(str, 0, ft_strlen(str) - 1);
+		start = ft_strstr(buffer, str);
+		print_number(start);
+	}
+	else
+	{
+		num2 = (argv[1][1] - '0');
+		num2 = num2 * 10;
+		int_to_str(ptr1, 50, num2);
+		reverse(ptr1, 0, ft_strlen(ptr1) - 1);
+		start = ft_strstr(buffer, ptr1);
+		print_number(start);
+		
+		ft_putchar('-');
+		num3 = (argv[1][2] - '0');
+		int_to_str(ptr2, 50, num3);
+		start = ft_strstr(buffer, ptr2);
+		print_number(start);
 
+	}
 }
 
 int	main(int argc, char **argv)
