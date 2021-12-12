@@ -218,6 +218,7 @@ void	three_digits(int argc, char **argv)
 	char ptr2[50];
 	char	*start;
 	
+	//digit 1
 	num1 = (argv[1][0] - '0');
 	int_to_str(ptr, 50, num1);
 	start = ft_strstr(buffer, ptr);
@@ -225,10 +226,13 @@ void	three_digits(int argc, char **argv)
 
 	ft_putchar('-');
 
+	//word hundred
 	start = ft_strstr(buffer, "100");
 	print_number(start);
 
 	ft_putchar('-');
+
+	//11 - 19 (second and third numbers)
 	if (if_three_el_nt(argc, argv[1]) == 1)
 	{
 		int	num;
@@ -243,6 +247,7 @@ void	three_digits(int argc, char **argv)
 	}
 	else
 	{
+		//second number
 		num2 = (argv[1][1] - '0');
 		num2 = num2 * 10;
 		int_to_str(ptr1, 50, num2);
@@ -251,6 +256,8 @@ void	three_digits(int argc, char **argv)
 		print_number(start);
 		
 		ft_putchar('-');
+
+		//third number
 		num3 = (argv[1][2] - '0');
 		int_to_str(ptr2, 50, num3);
 		start = ft_strstr(buffer, ptr2);
@@ -277,5 +284,33 @@ int	main(int argc, char **argv)
 	else if (ft_strlen(argv[1]) == 3)
 	{
 		three_digits(argc, argv);
+	}
+	else
+	{
+		int	length;
+		int	i;
+		char	str1[50];
+		int	stop;
+
+		i = 0;
+		length = ft_strlen(argv[1]);
+		stop = length % 3;
+		if (stop == 0)
+		{
+			while (i != 3)
+			{
+				str1[i] = argv[1][i];
+				i++;
+			}
+		}
+		else
+		{
+			while (i != stop)
+			{
+				str1[i] = argv[1][i];
+				i++;
+			}
+		}
+		printf("%s\n", str1);
 	}
 }
