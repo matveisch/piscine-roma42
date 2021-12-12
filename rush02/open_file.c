@@ -140,60 +140,115 @@ int	if_el_to_nt(int argc, char **argv)
 	return (0);
 }
 
-int	main(int argc, char **argv)
+void	one_ten_eleven(int argc, char **argv)
 {
 	//opening the file and creating one big string
 	char	buffer[2048];
 	open_file(buffer, 2048);
 
 	//condition for single digit numbers and those with 0 in the end
+	char	*start;
+
+	start = ft_strstr(buffer, argv[1]);
+	print_number(start);
+}
+
+void	two_digits(int argc, char **argv)
+{
+	//opening the file and creating one big string
+	char	buffer[2048];
+	open_file(buffer, 2048);
+
+	//getting the first number
+	int	num1;
+
+	num1 = (argv[1][0] - '0') * 10;
+	//convert first number into string
+	char	ptr[50];
+
+	int_to_str(ptr, 50, num1);
+	//reverse string
+	reverse(ptr, 0, ft_strlen(ptr) - 1);
+	//using strstr to get exact number
+	char	*start;
+
+	start = ft_strstr(buffer, ptr);
+	print_number(start);
+	//second number
+	//getting the second number
+	int	num2;
+	
+	num2 = (argv[1][1] - '0');
+	//convert second number into string
+	char	ptr1[50];
+
+	int_to_str(ptr1, 50, num2);
+	ft_putchar('-');
+	//using strstr to get exact number
+	char	*start1;
+
+	start1 = ft_strstr(buffer, ptr1);
+	print_number(start1);
+}
+
+void	three_digits(int argc, char **argv)
+{
+	//opening the file and creating one big string
+	char	buffer[2048];
+	open_file(buffer, 2048);
+
+	int	num1;
+	int num2;
+	int	num3;
+	char ptr[50];
+	char ptr1[50];
+	char ptr2[50];
+	char	*start;
+	
+	num1 = (argv[1][0] - '0');
+	int_to_str(ptr, 50, num1);
+	start = ft_strstr(buffer, ptr);
+	print_number(start);
+
+	ft_putchar('-');
+
+	start = ft_strstr(buffer, "100");
+	print_number(start);
+
+	ft_putchar('-');
+
+	num2 = (argv[1][1] - '0');
+	num2 = num2 * 10;
+	int_to_str(ptr1, 50, num2);
+	reverse(ptr1, 0, ft_strlen(ptr1) - 1);
+	start = ft_strstr(buffer, ptr1);
+	print_number(start);
+	
+	ft_putchar('-');
+	num3 = (argv[1][2] - '0');
+	int_to_str(ptr2, 50, num3);
+	start = ft_strstr(buffer, ptr2);
+	print_number(start);
+
+}
+
+int	main(int argc, char **argv)
+{
 	if (ft_strlen(argv[1]) == 1
 		|| (ft_strlen(argv[1]) == 2 && argv[1][1] == '0'))
 	{
-		char	*start;
-
-		start = ft_strstr(buffer, argv[1]);
-		print_number(start);
+		one_ten_eleven(argc, argv);
 	}
-	//condition for number from 11 to 19
 	else if (ft_strlen(argv[1]) == 2 && (if_el_to_nt(argc, &argv[1])) == 1)
 	{
-		char	*start;
-		start = ft_strstr(buffer, argv[1]);
-		print_number(start);
+		one_ten_eleven(argc, argv);
 	}
-	//condition for two digit numbers (ex those ending with 0)
 	else if (ft_strlen(argv[1]) == 2 && !(argv[1][1] == '0'))
 	{
-		//getting the first number
-		int	num1;
-
-		num1 = (argv[1][0] - '0') * 10;
-		//convert first number into string
-		char	ptr[50];
-
-		int_to_str(ptr, 50, num1);
-		//reverse string
-		reverse(ptr, 0, ft_strlen(ptr) - 1);
-		//using strstr to get exact number
-		char	*start;
-
-		start = ft_strstr(buffer, ptr);
-		print_number(start);
-		//second number
-		//getting the second number
-		int	num2;
-		
-		num2 = (argv[1][1] - '0');
-		//convert second number into string
-		char	ptr1[50];
-
-		int_to_str(ptr1, 50, num2);
-		ft_putchar('-');
-		//using strstr to get exact number
-		char	*start1;
-
-		start1 = ft_strstr(buffer, ptr1);
-		print_number(start1);
+		two_digits(argc, argv);
+	}
+	else if (ft_strlen(argv[1]) == 3)
+	{
+		three_digits(argc, argv);
 	}
 }
